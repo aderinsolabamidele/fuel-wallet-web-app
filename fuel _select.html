@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Bank Wallet</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background-image: url(fuel\ back\ 2.jpeg);
+            color: white;
+        }
+        .balance-section {
+            background: linear-gradient(135deg, #008000, #FFD700, #FF0000);
+            padding: 20px;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            border-radius: 0 0 25px 25px;
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+        .balance-box {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 10px;  /* Reduced padding */
+    border-radius: 6px;  /* Reduced border radius */
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 1.2em;  /* Reduced font size */
+    font-weight: bold;
+}
+        .balance-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .balance-section button {
+            background: white;
+            border: none;
+            color: black;
+            font-size: 16px;
+            padding: 8px 15px;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+        .balance-section button:hover {
+            background: black;
+            color: white;
+        }
+        .logout-btn {
+            margin-top: 10px;
+            background: red;
+            color: white;
+            font-weight: bold;
+        }
+        .logout-btn:hover {
+            background: darkred;
+        }
+        .container {
+            padding: 150px 20px 20px;
+            text-align: center;
+        }
+        .transaction-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 15px;
+            background: linear-gradient(45deg, #008000, #FFD700);
+            color: white;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: 0.3s;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        .btn:hover {
+            background: linear-gradient(45deg, #FFD700, #FF0000);
+            transform: scale(1.05);
+        }
+        .activity-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #1e1e1e;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .activity-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #333;
+        }
+        .activity-details {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .activity-details img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: #1e1e1e;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 20px 20px 0 0;
+        }
+        .bottom-nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .bottom-nav a:hover {
+            color: #008000;
+        }
+    </style>
+</head>
+<body>
+    <div class="balance-section">
+        <h2>My Dippmos Wallet</h2>
+        <p class="balance-box" id="balance">₦98,450.00</p>
+        <div class="balance-actions">
+            <button id="toggleBalance">Hide/Show Balance</button>
+            <button id="addMoney">Add Money</button>
+            <a  href="dashboard.html" class="btn">Log Out</a>
+        </div>
+       
+    </div>
+    
+    <div class="container">
+        <h2>Quick Transactions</h2>
+        <div class="transaction-buttons">
+            <a  href="transfer.html" class="btn">Transfer</a>
+            <button class="btn">Withdraw</button>
+            <button class="btn">Split Payment</button>
+            <button class="btn">DIPPmos Wallet Pay</button>
+            <button class="btn">Loan</button>
+            <button class="btn">Invite</button>
+        </div>
+
+        <div class="activity-section">
+            <h2>Your Activity</h2>
+            <div class="activity-item">
+                <div class="activity-details">
+                    <img src="logo 1.jpeg" alt="NNPC">
+                    <span>NNPC</span>
+                </div>
+                <span>-₦5,000.00</span>
+                <span>Petrol - 25L</span>
+                <span>12/03/2025</span>
+            </div>
+            <div class="activity-item">
+                <div class="activity-details">
+                    <img src="logo 2.png" alt="Oando">
+                    <span>Oando</span>
+                </div>
+                <span>-₦7,500.00</span>
+                <span>Diesel - 30L</span>
+                <span>14/03/2025</span>
+            </div>
+            <div class="activity-item">
+                <div class="activity-details">
+                    <img src="logo 3.jpeg" alt="Total">
+                    <span>Total</span>
+                </div>
+                <span>-₦10,000.00</span>
+                <span>Gasoline - 40L</span>
+                <span>16/03/2025</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="bottom-nav">
+        <a href="fuel _select.html">Home</a>
+        <a href="map.html">Map</a>
+        <a href="help.html">Help</a>
+        <a href="#">More</a>
+    </div>
+    
+    <script>
+        document.getElementById('toggleBalance').addEventListener('click', function() {
+            const balance = document.getElementById('balance');
+            balance.textContent = balance.textContent.includes('₦') ? '****' : '₦100,000.00';
+        });
+
+        document.getElementById('logout').addEventListener('click', function() {
+            window.location.href = "login.html"; // Change this to the actual login page URL
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-image: url(fuel\ back\ 2.jpeg);
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #008000;
+    color: white;
+    align-items: center;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.notifications {
+    position: relative;
+}
+
+.bell-icon {
+    font-size: 20px;
+}
+
+.badge {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background: red;
+    color: white;
+    font-size: 12px;
+    padding: 3px 6px;
+    border-radius: 50%;
+}
+
+/* Balance Section */
+.balance-section {
+    background: #ffffff;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.balance-label {
+    font-size: 16px;
+    color: gray;
+}
+
+.balance {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.add-money {
+    background: #008000;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Action Buttons */
+.actions {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px;
+}
+
+.action-btn {
+    background: #008000;
+    color: white;
+    padding: 15px;
+    width: 30%;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Services */
+.services {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 10px;
+}
+
+.service-btn {
+    background: #f0f0f0;
+    color: black;
+    padding: 15px;
+    width: 30%;
+    border-radius: 10px;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Promotions */
+.promotion {
+    background: #ffffff;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.amount {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.go-btn {
+    background: #FFD700;
+    color: black;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}

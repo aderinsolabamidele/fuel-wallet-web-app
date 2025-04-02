@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuel Wallet - Login</title>
+    <link rel="stylesheet" href="style1.css">
+</head>
+<body>
+
+    <!-- Login Form -->
+    <div class="login-container" id="login-form">
+        <h2 class="logo">Dippmos Wallet</h2>
+        <h2>Login to Your Account</h2>
+
+        <form onsubmit="event.preventDefault(); login();">
+            <input type="number" id="number" placeholder="Enter Your phone number" required>
+            <input type="password" id="password" placeholder="Enter Password Here" required>
+
+            <a href="dashboard.html" class="login-btn">Login</a>
+        </form>
+
+        <a href="#" class="forgot-password">Recover account? </a>
+
+        <div class="signup-link">
+            Don't have an account? <a href="sign_up.html">Sign Up</a>
+        </div>
+    </div>
+
+    <!-- Slideshow -->
+    <!-- <div class="background-text">
+        <h1 id="slide-title">Fueling the Future</h1>
+        <p id="slide-description">Seamless digital transactions for refueling your vehicle.</p>
+    </div> -->
+
+    <!-- JavaScript -->
+    <script>
+        // Slideshow Content
+        const slides = [
+            { title: "Fueling the Future", description: "Seamless digital transactions for refueling your vehicle." },
+            { title: "Find Stations Easily", description: "Locate nearby fuel stations in real-time." },
+            { title: "Secure Payments", description: "Fund your wallet and pay with ease, cashless and stress-free." },
+            { title: "Save Time, Save Money", description: "Get discounts and deals when you refuel using the app." }
+        ];
+
+        let currentSlide = 0;
+
+        function changeSlide() {
+            const titleElement = document.getElementById("slide-title");
+            const descriptionElement = document.getElementById("slide-description");
+
+            titleElement.style.opacity = "0";
+            descriptionElement.style.opacity = "0";
+
+            setTimeout(() => {
+                titleElement.innerText = slides[currentSlide].title;
+                descriptionElement.innerText = slides[currentSlide].description;
+                titleElement.style.opacity = "1";
+                descriptionElement.style.opacity = "1";
+
+                currentSlide = (currentSlide + 1) % slides.length;
+            }, 500);
+        }
+
+        // Change slide every 4 seconds
+        setInterval(changeSlide, 4000);
+
+        // Login Functionality
+        function login() {
+            let username = document.getElementById("username").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let password = document.getElementById("password").value.trim();
+
+            if (username === "" || email === "" || password === "") {
+                alert("Please fill in all fields!");
+                return;
+            }
+
+            // Store username in session storage
+            sessionStorage.setItem("username", username);
+
+            // Redirect to dashboard.html
+            window.location.href = "dashboard.html";
+        }
+    </script>
+</body>
+</html>
+
+
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuel Station Locator</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #006400, #8B0000, #FFD700);
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            position: relative;
+            z-index: 2;
+        }
+        button {
+            background-color: yellow;
+            border: none;
+            padding: 12px 25px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 30px;
+            box-shadow: 0 4px 10px rgba(255, 255, 0, 0.7);
+            transition: transform 0.2s;
+            margin-top: 20px;
+        }
+        button:hover {
+            transform: scale(1.1);
+        }
+        .search-box {
+            margin-top: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 15px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+        }
+        input {
+            padding: 12px;
+            font-size: 16px;
+            width: 250px;
+            border-radius: 20px;
+            border: none;
+            text-align: center;
+        }
+        .map-container {
+            width: 80%;
+            height: 400px;
+            margin-top: 20px;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+    </style>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+    <div class="container">
+        <h1>Find the Nearest Fuel Station</h1>
+        <button id="findButton">Find Nearest Station</button>
+    </div>
+    
+    <div class="search-box">
+        <input type="text" id="locationInput" placeholder="Enter your location..." />
+        <button id="searchButton">Search</button>
+    </div>
+
+    <!-- Home Button -->
+    <button id="homeButton">Home</button>
+    
+    <p id="result"></p>
+    <ul id="stations-list"></ul>
+    
+    <div id="map" class="map-container"></div>
+    
+    <script>
+        let map;
+        const apiKey = 'c842b10102e54a7f8abde60bc3dcbe1d';
+
+        function initMap(lat, lon) {
+            if (!map) {
+                map = L.map('map').setView([lat, lon], 13);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap contributors'
+                }).addTo(map);
+            } else {
+                map.setView([lat, lon], 13);
+            }
+        }
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                document.getElementById("result").innerHTML = "Geolocation is not supported.";
+            }
+        }
+
+        function showPosition(position) {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            initMap(lat, lon);
+            L.marker([lat, lon]).addTo(map).bindPopup("You are here").openPopup();
+            fetchFuelStations(lat, lon);
+        }
+
+        function fetchFuelStations(lat, lon) {
+            const apiUrl = `https://api.geoapify.com/v2/places?categories=service.fuel&filter=circle:${lon},${lat},5000&bias=proximity:${lon},${lat}&limit=5&apiKey=${apiKey}`;
+            
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const stationsList = document.getElementById("stations-list");
+                    stationsList.innerHTML = "";
+                    if (data.features && data.features.length > 0) {
+                        data.features.forEach(station => {
+                            const name = station.properties.name || "Unknown Station";
+                            const fuelPrice = station.properties.fuel_price || "Price not available";
+                            const [stationLon, stationLat] = station.geometry.coordinates;
+                            const li = document.createElement("li");
+                            li.textContent = `${name} - ${fuelPrice}`;
+                            stationsList.appendChild(li);
+                            L.marker([stationLat, stationLon]).addTo(map).bindPopup(`${name}<br>Price: ${fuelPrice}`);
+                        });
+                    } else {
+                        document.getElementById("result").innerHTML = "No fuel stations found nearby.";
+                    }
+                })
+                .catch(() => document.getElementById("result").innerHTML = "Error fetching fuel stations.");
+        }
+
+        function fetchLocation() {
+            const location = document.getElementById("locationInput").value;
+            if (!location) {
+                document.getElementById("result").innerHTML = "Please enter a location.";
+                return;
+            }
+            
+            fetch(`https://api.geoapify.com/v1/geocode/search?text=${location}&apiKey=${apiKey}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.features.length > 0) {
+                        const [lon, lat] = data.features[0].geometry.coordinates;
+                        initMap(lat, lon);
+                        L.marker([lat, lon]).addTo(map).bindPopup(location).openPopup();
+                        fetchFuelStations(lat, lon);
+                    } else {
+                        document.getElementById("result").innerHTML = "Location not found.";
+                    }
+                })
+                .catch(() => document.getElementById("result").innerHTML = "Error searching for location.");
+        }
+
+        function showError(error) {
+            document.getElementById("result").innerHTML = "Error: " + error.message;
+        }
+
+        document.getElementById("findButton").addEventListener("click", getLocation);
+        document.getElementById("searchButton").addEventListener("click", fetchLocation);
+
+        // Home Button Functionality
+        document.getElementById("homeButton").addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to the top of the page
+        });
+    </script>
+</body>
+</html>

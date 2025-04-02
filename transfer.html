@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuel Purchase</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #007f00, #ffcc00, #ff0000);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 300px;
+        }
+        h2 {
+            color: #007f00;
+        }
+        select, input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .btn {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .continue {
+            background: #ffcc00;
+        }
+        .logout {
+            background: #ff0000;
+            color: white;
+        }
+        .receipt {
+            display: none;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Fuel Purchase</h2>
+        <p>Available Balance: <strong id="balance">₦98,450.00</strong></p>
+        <label>Select Wallet</label>
+        <select id="wallet" onchange="updateBalance()">
+            <option value="98450">Dippmos Wallet - ₦98,450</option>
+            <option value="50000">Wallet 2 - ₦50,000</option>
+        </select>
+        <label>Select Fuel Type</label>
+        <select id="fuelType">
+            <option>P.M.S(fuel)</option>
+            <option>A.G.O(Diesel)</option>
+            <option>D.P.K(kerosine)</option>
+            <option>C.N.G(compressed natural Gas)</option>
+            <option>L.P.G(liquified petroleum Gas)</option>
+            <option>L.N.G (liquified natural Gas)</option>
+            <option>Others</option>
+        </select>
+
+        <label>Select Filling Station</label>
+        <select id="Station">
+            <option>NNPC</option>
+            <option>Oando</option>
+            <option>Total</option>
+            <option>Others</option>
+
+
+        </select>
+        <label>Enter Amount</label>
+        <input type="number" id="amount" placeholder="0.00">
+        <label>Enter Station account Number</label>
+        <input type="number" id="number" placeholder="Number">
+        <label>Enter Narration (Optional)</label>
+        <input type="text" id="narration" placeholder="Optional">
+        <button class="btn continue" onclick="processTransaction()">Continue</button>
+        <a  href="fuel _select.html" class="btn">Log Out</a>
+    </div>
+    
+    <div class="receipt" id="receipt">
+        <h2>Receipt</h2>
+        <p><strong>Fuel Type:</strong> <span id="receiptFuel"></span></p>
+        <p><strong>Amount:</strong> ₦<span id="receiptAmount"></span></p>
+        <p><strong>New Balance:</strong> ₦<span id="newBalance"></span></p>
+        <p><strong>Narration:</strong> <span id="receiptNarration"></span></p>
+        <button class="btn" onclick="closeReceipt()">Close</button>
+    </div>
+    
+    <script>
+        function updateBalance() {
+            let wallet = document.getElementById("wallet");
+            let balanceDisplay = document.getElementById("balance");
+            balanceDisplay.textContent = "₦" + parseFloat(wallet.value).toLocaleString();
+        }
+
+        function processTransaction() {
+            let wallet = document.getElementById("wallet");
+            let selectedBalance = parseFloat(wallet.value);
+            let amount = parseFloat(document.getElementById("amount").value);
+            let fuelType = document.getElementById("fuelType").value;
+            let narration = document.getElementById("narration").value || "N/A";
+            
+            if (amount > selectedBalance) {
+                alert("Insufficient funds in the selected wallet!");
+            } else {
+                let newBalance = selectedBalance - amount;
+                wallet.options[wallet.selectedIndex].value = newBalance; // Update wallet balance
+                document.getElementById("balance").textContent = "₦" + newBalance.toLocaleString();
+
+                // Show receipt
+                document.getElementById("receiptFuel").textContent = fuelType;
+                document.getElementById("receiptAmount").textContent = amount.toLocaleString();
+                document.getElementById("newBalance").textContent = newBalance.toLocaleString();
+                document.getElementById("receiptNarration").textContent = narration;
+                document.getElementById("receipt").style.display = "block";
+            }
+        }
+
+        function closeReceipt() {
+            document.getElementById("receipt").style.display = "none";
+        }
+    </script>
+</body>
+</html>

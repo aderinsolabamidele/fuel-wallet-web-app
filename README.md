@@ -13,3 +13,5 @@ Payment Integration: Users can directly pay for fuel through the app by using fu
 User-Friendly Interface: The app is designed with a simple, intuitive interface, ensuring a smooth experience for users of all tech levels.
 
 The app will save time, offer convenience, and enhance the overall fuel-buying experience by centralizing both fuel station location and payment management in one place.
+
+link to the website : https://aderinsolabamidele.github.io/fuel-wallet-web-app/
